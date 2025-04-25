@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Liquidity Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+        .container {
+            padding: 2rem;
+        }
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .details {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 1rem;
+            padding: 1rem;
+            width: 300px;
+            text-align: center;
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .card p {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Crypto Liquidity Dashboard</h1>
+    </header>
+    <div class="container">
+        <!-- Chart Section -->
+        <div class="chart-container">
+            <canvas id="liquidityChart" width="400" height="400"></canvas>
+        </div>
+
+        <!-- Details Section -->
+        <div class="details">
+            <div class="card">
+                <h3>Individuals</h3>
+                <p id="individual-liquidity">Loading...</p>
+            </div>
+            <div class="card">
+                <h3>Whales</h3>
+                <p id="whale-liquidity">Loading...</p>
+            </div>
+            <div class="card">
+                <h3>Institutions & Funds</h3>
+                <p id="institution-liquidity">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Mock Data (Replace with API calls)
+        const liquidityData = {
+            individuals: 40, // Percentage
+            whales: 35,      // Percentage
+            institutions: 25 // Percentage
+        };
+
+        // Update Text Details
+        document.getElementById("individual-liquidity").innerText = `${liquidityData.individuals}% of total liquidity`;
+        document.getElementById("whale-liquidity").innerText = `${liquidityData.whales}% of total liquidity`;
+        document.getElementById("institution-liquidity").innerText = `${liquidityData.institutions}% of total liquidity`;
+
+        // Create Chart
+        const ctx = document.getElementById('liquidityChart').getContext('2d');
+        const liquidityChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Individuals', 'Whales', 'Institutions & Funds'],
+                datasets: [{
+                    data: [liquidityData.individuals, liquidityData.whales, liquidityData.institutions],
+                    backgroundColor: ['#4CAF50', '#FF9800', '#2196F3']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
